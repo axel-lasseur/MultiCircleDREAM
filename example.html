@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" src="multicircledream.lib.js"></script>
+	<link rel="stylesheet" type="text/css" href="example.css">
+</head>
+<body>
+
+<canvas id="MultiCircleDREAM" width="800" height="400">Your browser does not support the HTML5 canvas tag.</canvas>
+
+<h3>Multiplicator : <output class="rangevalue" id="multiplicator"></output></h3>
+<div class="slider" id="mult">
+	<input class="bar" type="range" id="multiplicatorrange" name="" min="0" max="500" step="1" onchange="multiplicator(this)">
+	<span class="highlight"></span>
+</div>
+
+<table>
+	<tr>
+		<td>
+			<div class="slideThree">	
+				<input type="checkbox" value="None" id="slideThree" name="check" checked onchange="toggleAnim(this)" />
+				<label for="slideThree"></label>
+			</div>
+		</td>
+		<td>
+			<h3>Incrementation per frame (speed) : +<output class="rangevalue" id="speed">0.005</output></h3>
+			<div class="slider">
+				<input class="bar" type="range" name="" min="0" max="0.1" step="0.0001" value="0.005" onchange="MultiCircleDREAM.setSpeed(parseFloat(this.value)); speed.value = value;">
+				<span class="highlight"></span>
+			</div>
+		</td>
+		<td>
+			<h3>Numeral base : <output class="rangevalue" id="base">300</output></h3>
+			<div class="slider">
+				<input class="bar" type="range" name="" min="2" max="500" step="1" value="300" onchange="MultiCircleDREAM.setBase(parseFloat(this.value)); base.value = value;">
+				<span class="highlight"></span>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<article>
+	<h1>(つ▀¯▀)つ Usage</h1>
+	<p>
+		Call MultiCircleDREAM library in head tag (⌐■_■)✎__
+		<code>&lt;script type="text/javascript" src="multicircledream.lib.js"&gt;</code>
+	</p>
+	<p>
+		Initialize MultiCircleDREAM <u>after</u> the canvas tag. I recommand you to put it at the end of your html page (⌐■_■)✎__
+		<code>MultiCircleDREAM.init(put_your_canvas_id_here);</code>
+	</p>
+	<p>
+		Done ! ＼\ ٩( ᐛ )و /／
+		<br /><br />
+		It is ready and make an animation with defaults parameters. Of course, it's possible to set it with the methods below (optional) (⌐■_■)✎__
+		<code>MultiCircleDREAM.stop(); //stop the animation</code>
+		<code>MultiCircleDREAM.start(); //start the animation</code>
+		<code>MultiCircleDREAM.setBase(number);</code>
+		<code>MultiCircleDREAM.setSpeed(float);</code>
+		<code>MultiCircleDREAM.setMultiplicator(float);</code>
+		That's all you need to know about it. Thank you for having read. ⊂(◉‿◉)つ
+	</p>
+	<div>
+	<a id="get_library" href="https://github.com/axel-lasseur/MultiCircleDREAM" target="_blank">
+		<svg aria-hidden="true" class="octicon octicon-mark-github" height="32" version="1.1" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>Get MultiCircleDREAM ヽ(´▽｀)ノ
+	</a>
+	</div>
+</article>
+
+<footer>
+	<a href="http://axel.kwam.fr" target="_blank">Axel LASSEUR</a>
+</footer>
+
+<script type="text/javascript">
+	MultiCircleDREAM.init("MultiCircleDREAM");
+	MultiCircleDREAM.setBase(300);
+	MultiCircleDREAM.setSpeed(0.005);
+
+	setInterval(updateMultiplicator,100);
+
+	var delay = 0;
+	function updateMultiplicator(){
+		let mul = MultiCircleDREAM.getMultiplicator()
+		document.getElementById('multiplicator').value = customRoundString(mul);
+		if(delay++ % 10 == 0)
+			document.getElementById('multiplicatorrange').value = mul;
+	}
+
+	function toggleAnim(e) {
+		console.log(e.checked);
+		if(e.checked){
+			console.log("ok");
+			MultiCircleDREAM.start();
+		}
+		else{
+			MultiCircleDREAM.stop();
+		}
+	}
+
+	function multiplicator(e){
+		MultiCircleDREAM.setMultiplicator(parseFloat(e.value)); 
+		multiplicator.value = (e.value);
+	}
+
+	function customRoundString(n){
+		n = Math.round(n*1000)/1000;
+		n = n.toString().split(".");
+		for(let i=1 ; i<=3 ; i++)
+			if(i>n[1].length)
+				n[1] = n[1]+"0";
+
+		return n[0]+"."+n[1];
+	}
+</script>
+</body>
+</html>
