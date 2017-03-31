@@ -8,7 +8,7 @@ Call MultiCircleDREAM library in head tag (⌐■_■)✎__
 
 Initialize MultiCircleDREAM after the canvas tag. I recommand you to put it at the end of your html page (⌐■_■)✎__
 
-    MultiCircleDREAM.init(put_your_canvas_id_here);
+    MultiCircleDREAM.init(put_your_canvas_id_here, width(optional), height(optional));
 
 Done ! ＼\ ٩( ᐛ )و /／ 
 It is ready and make an animation with defaults parameters. Of course, it's possible to set it with the methods below (optional) (⌐■_■)✎__
